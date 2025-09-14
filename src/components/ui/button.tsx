@@ -5,24 +5,29 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        default: "wellness-gradient text-primary-foreground hover:shadow-[var(--shadow-gentle)] hover:scale-105",
-        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline: "border border-border/50 bg-background/50 backdrop-blur-sm hover:bg-accent/20 hover:border-primary/30",
-        secondary: "bg-secondary/80 text-secondary-foreground hover:bg-secondary hover:shadow-[var(--shadow-gentle)]",
-        ghost: "hover:bg-accent/20 hover:text-accent-foreground",
+        default: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] hover:scale-[1.02] active:scale-[0.98]",
+        destructive:
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)]",
+        outline:
+          "border border-input bg-background hover:bg-accent hover:text-accent-foreground shadow-[var(--shadow-xs)] hover:shadow-[var(--shadow-sm)]",
+        secondary:
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-[var(--shadow-xs)] hover:shadow-[var(--shadow-sm)]",
+        ghost: "hover:bg-accent hover:text-accent-foreground hover:scale-[1.02]",
         link: "text-primary underline-offset-4 hover:underline",
-        hero: "hero-gradient text-white shadow-[var(--shadow-gentle)] hover:shadow-[var(--shadow-floating)] hover:scale-105 border border-white/20",
+        glass: "btn-glass text-foreground hover:shadow-[var(--shadow-md)]",
+        hero: "bg-primary text-primary-foreground shadow-[var(--shadow-md)] hover:shadow-[var(--shadow-lg)] hover:scale-[1.02] active:scale-[0.98] rounded-2xl",
+        premium: "bg-gradient-to-r from-primary to-primary-glow text-white shadow-[var(--shadow-md)] hover:shadow-[var(--shadow-lg)] hover:scale-[1.02] active:scale-[0.98] rounded-2xl",
         calm: "bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground transition-all duration-500",
       },
       size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
-        icon: "h-10 w-10",
+        default: "h-11 px-6 py-2.5",
+        sm: "h-9 rounded-lg px-4",
+        lg: "h-14 rounded-2xl px-10 text-base",
+        icon: "h-11 w-11",
       },
     },
     defaultVariants: {

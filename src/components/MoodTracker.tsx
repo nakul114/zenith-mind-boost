@@ -28,128 +28,136 @@ const MoodTracker = () => {
   };
 
   return (
-    <section className="py-20 px-6 bg-background">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gradient-wellness mb-6">
-            Track Your Daily Mood
+    <section className="section-padding bg-gradient-to-b from-primary/2 to-background">
+      <div className="container-max">
+        <div className="text-center mb-20">
+          <h2 className="text-large md:text-display text-foreground mb-6">
+            Monitor Your <span className="text-gradient-primary">Wellness Journey</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Understanding your emotional patterns is the first step toward better mental health.
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-light leading-relaxed">
+            Professional-grade mood tracking and analytics to help you and your therapist understand patterns and progress.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Mood Tracker */}
-          <Card className="wellness-card p-8">
-            <CardHeader className="text-center">
-              <CardTitle className="text-2xl font-bold mb-2">
-                How are you feeling today?
-              </CardTitle>
-              <CardDescription>
-                Select the mood that best represents how you're feeling right now
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-5 gap-4 mb-8">
-                {moods.map((mood) => (
-                  <button
-                    key={mood.value}
-                    onClick={() => handleMoodSelect(mood.value)}
-                    className={`
-                      p-4 rounded-2xl border-2 transition-all duration-300 hover:scale-110
-                      ${selectedMood === mood.value 
-                        ? 'border-primary bg-primary/10 shadow-[var(--shadow-gentle)]' 
-                        : 'border-border hover:border-primary/50'
-                      }
-                    `}
-                  >
-                    <div className="text-3xl mb-2">{mood.emoji}</div>
-                    <div className="text-sm font-medium text-foreground">{mood.label}</div>
-                  </button>
-                ))}
-              </div>
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          {/* Professional Mood Assessment */}
+          <div className="glass-card p-10">
+            <h3 className="text-2xl font-semibold text-foreground mb-8">Daily Wellness Check-In</h3>
+            
+            <div className="grid grid-cols-5 gap-3 mb-8">
+              {moods.map((mood, index) => (
+                <button
+                  key={mood.value}
+                  onClick={() => handleMoodSelect(mood.value)}
+                  className={`p-4 rounded-2xl border transition-all duration-300 hover:scale-105 ${
+                    selectedMood === mood.value
+                      ? 'border-primary bg-primary/8 shadow-[var(--shadow-md)]'
+                      : 'border-border/50 hover:border-primary/50 hover:bg-accent/50'
+                  }`}
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className="text-3xl mb-2">{mood.emoji}</div>
+                  <div className="text-sm font-medium text-foreground">{mood.label}</div>
+                </button>
+              ))}
+            </div>
 
-              {selectedMood && (
-                <div className="text-center animate-fade-in-up">
-                  <p className="text-muted-foreground mb-4">
-                    You selected: <strong>{moods.find(m => m.value === selectedMood)?.label}</strong>
-                  </p>
-                  <Button 
-                    onClick={handleTrackMood}
-                    variant="default" 
-                    size="lg"
-                    disabled={isTracked}
-                    className="w-full"
-                  >
-                    {isTracked ? (
-                      <>
-                        <Heart className="w-5 h-5 mr-2 text-red-400" />
-                        Mood Tracked!
-                      </>
-                    ) : (
-                      <>
-                        <TrendingUp className="w-5 h-5 mr-2" />
-                        Track My Mood
-                      </>
-                    )}
-                  </Button>
+            {selectedMood && (
+              <div className="text-center animate-spring-in">
+                <p className="text-muted-foreground mb-6">
+                  Selected: <strong className="text-foreground">{moods.find(m => m.value === selectedMood)?.label}</strong>
+                </p>
+                <div className="space-y-4 mb-6">
+                  <textarea 
+                    className="w-full p-4 border border-border/50 rounded-xl bg-background/50 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none resize-none transition-all duration-300"
+                    rows={3}
+                    placeholder="Any specific thoughts, events, or feelings you'd like to track?"
+                  />
                 </div>
-              )}
-            </CardContent>
-          </Card>
-
-          {/* Insights */}
-          <div className="space-y-6">
-            <Card className="wellness-card">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <TrendingUp className="w-5 h-5 text-primary" />
-                  Your Progress
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">This week's average</span>
-                    <Badge variant="secondary" className="bg-green-100 text-green-800">
-                      Good (4.2/5)
-                    </Badge>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Streak</span>
-                    <Badge variant="secondary" className="bg-blue-100 text-blue-800">
-                      7 days
-                    </Badge>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Improvement</span>
-                    <Badge variant="secondary" className="bg-purple-100 text-purple-800">
-                      +15% from last week
-                    </Badge>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="wellness-card">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Calendar className="w-5 h-5 text-primary" />
-                  Recommendations
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3 text-sm text-muted-foreground">
-                  <p>📚 Try the gratitude journaling exercise today</p>
-                  <p>🧘 Consider a 10-minute mindfulness session</p>
-                  <p>🚶 A short walk outside could boost your mood</p>
-                </div>
-                <Button variant="outline" className="w-full mt-4">
-                  View All Recommendations
+                <Button 
+                  onClick={handleTrackMood}
+                  variant="premium" 
+                  size="lg"
+                  disabled={isTracked}
+                  className="w-full"
+                >
+                  {isTracked ? (
+                    <>
+                      <Heart className="w-5 h-5 mr-2" />
+                      Check-In Saved!
+                    </>
+                  ) : (
+                    <>
+                      <TrendingUp className="w-5 h-5 mr-2" />
+                      Save Check-In
+                    </>
+                  )}
                 </Button>
-              </CardContent>
-            </Card>
+              </div>
+            )}
+          </div>
+
+          {/* Professional Analytics Dashboard */}
+          <div className="space-y-8">
+            <div className="glass-card p-8">
+              <h3 className="text-xl font-semibold text-foreground mb-6 flex items-center gap-2">
+                <TrendingUp className="w-5 h-5 text-primary" />
+                Wellness Analytics
+              </h3>
+              <div className="space-y-6">
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground font-medium">This week's average</span>
+                  <Badge variant="secondary" className="bg-primary/10 text-primary font-medium">
+                    Good (4.2/5)
+                  </Badge>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground font-medium">Consistency streak</span>
+                  <Badge variant="secondary" className="bg-primary/10 text-primary font-medium">
+                    7 days
+                  </Badge>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground font-medium">Weekly improvement</span>
+                  <Badge variant="secondary" className="bg-primary/10 text-primary font-medium">
+                    +15%
+                  </Badge>
+                </div>
+              </div>
+            </div>
+
+            <div className="glass-card p-8">
+              <h3 className="text-xl font-semibold text-foreground mb-6 flex items-center gap-2">
+                <Calendar className="w-5 h-5 text-primary" />
+                Personalized Recommendations
+              </h3>
+              <div className="space-y-4 mb-6">
+                <div className="flex items-start gap-3 p-3 rounded-xl bg-primary/5">
+                  <span className="text-lg">📚</span>
+                  <div className="text-sm">
+                    <p className="font-medium text-foreground">Gratitude practice</p>
+                    <p className="text-muted-foreground">Try journaling 3 things you're grateful for</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 p-3 rounded-xl bg-primary/5">
+                  <span className="text-lg">🧘</span>
+                  <div className="text-sm">
+                    <p className="font-medium text-foreground">Mindfulness session</p>
+                    <p className="text-muted-foreground">10-minute guided meditation recommended</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 p-3 rounded-xl bg-primary/5">
+                  <span className="text-lg">🚶</span>
+                  <div className="text-sm">
+                    <p className="font-medium text-foreground">Movement break</p>
+                    <p className="text-muted-foreground">Light exercise can boost mood naturally</p>
+                  </div>
+                </div>
+              </div>
+              <Button variant="glass" className="w-full">
+                View Therapy Resources
+              </Button>
+            </div>
           </div>
         </div>
       </div>
